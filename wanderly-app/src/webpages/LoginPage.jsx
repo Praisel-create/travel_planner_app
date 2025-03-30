@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
+
+  const navigateto = useNavigate(); //To navigate to the Explore store programmatically
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -16,30 +19,42 @@ const LoginPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const userErrors = {}; // Validation
+    const userErrors = {};
     if (!username) userErrors.username = "Username is required";
     if (!email) userErrors.email = "Email is required";
     if (!password) userErrors.password = "Password is required";
 
     setErrors(userErrors);
-
     if (Object.keys(userErrors).length > 0) return;
 
+    // Save user info in LocalStorage
+    const userData = {
+      name: username,
+      email: email,
+      profilePic: "https://www.kindpng.com/picc/m/106-1068191_transparent-avatar-clipart-hd-png-download.png",
+    };
+    //localStorage.setItem("user", userData)
+    localStorage.setItem("user", JSON.stringify(userData));
+    //setUserName(username)
     console.log("Form submitted:", { username, email, password });
+
+    //Navigate to the Explore page
+    navigateto("/explore-page");
   };
 
+
   return (
-    <div className="h-screen bg-cover bg-center bg-fixed flex justify-center items-center" 
-         style={{ backgroundImage: "url('/images/background-1.jpg')" }}>
+    <div className="min-h-screen bg-cover bg-center bg-fixed flex justify-center items-center"
+      style={{ backgroundImage: "url('/images/background-1.jpg')" }}>
       <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md w-80">
         <div className="text-center">
-          <img className="h-24 w-24 rounded-full mx-auto mb-6" 
-               src="https://www.kindpng.com/picc/m/106-1068191_transparent-avatar-clipart-hd-png-download.png" 
-               alt="Profile" />
+          <img className="h-24 w-24 rounded-full mx-auto mb-6"
+            src="https://www.kindpng.com/picc/m/106-1068191_transparent-avatar-clipart-hd-png-download.png"
+            alt="Profile" />
         </div>
 
         <div className="mb-4">
-          <input 
+          <input
             type="text"
             id="username"
             name="username"
@@ -53,7 +68,7 @@ const LoginPage = () => {
         </div>
 
         <div className="mb-4">
-          <input 
+          <input
             type="email"
             id="email"
             name="email"
@@ -67,7 +82,7 @@ const LoginPage = () => {
         </div>
 
         <div className="mb-4">
-          <input 
+          <input
             type="password"
             id="password"
             name="password"
@@ -79,7 +94,6 @@ const LoginPage = () => {
           />
           {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
         </div>
-
         <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded w-full hover:bg-blue-700">
           Register
         </button>
