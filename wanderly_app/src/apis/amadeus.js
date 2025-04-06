@@ -46,6 +46,7 @@ export const getIataCode = async (cityName) => {
   }
 };
 
+
 // Fetch Points of Interest (POIs)
 export const pointsOfInterest = async (lat, lon) => {
   const token = "CwvVPpBcSnyd8VfwTuMughPXkru8"; // Hardcoded token (replace with dynamic)

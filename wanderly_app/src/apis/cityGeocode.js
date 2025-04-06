@@ -6,7 +6,6 @@ export const getCoordinates = async (cityName) => {
     );
 
     if (!responce.ok) throw new Error("Failed to fetch geocode");
-
     const data = await responce.json();
 
     if (!data.results || data.results.length === 0) {
