@@ -74,7 +74,7 @@ const SearchPage = () => {
       playsInline
       className="absolute inset-0 w-full h-full object-cover z-0"
     >
-      <source src="/pictures/bg-video2.mp4" type="video/mp4" />
+      <source src="/src/pictures/bg-video2.mp4" type="video/mp4" />
     </video>
 
     {/**The user profile and Dropdown*/}
