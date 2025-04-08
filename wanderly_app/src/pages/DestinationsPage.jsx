@@ -64,58 +64,6 @@ const DestinationsPage = () => {
         </div>
       </div>
       
-      {/* Points of Interest Section */}
-      <div className="mb-10">
-        <h2 className="text-xl sm:text-2xl font-semibold mb-4 flex items-center gap-2">
-          <FiMapPin className="text-blue-500" />
-          Points of Interest
-        </h2>
-        
-        {poi && poi.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-            {poi.map((place) => (
-              <div key={place.id} className="border rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow bg-white">
-                <h3 className="font-bold text-lg mb-2">{place.name}</h3>
-                <p className="text-sm text-gray-600 mb-2">
-                  <span className="font-medium">Category:</span> {place.category}
-                </p>
-                
-                {place.geoCode && (
-                  <p className="text-xs text-gray-500 mb-3">
-                    <span className="font-medium">Location:</span> {place.geoCode.latitude}, {place.geoCode.longitude}
-                  </p>
-                )}
-                
-                <button
-                  onClick={() => toggleItineraryItem(place, 'poi')}
-                  className={`w-full flex items-center justify-center gap-2 py-2 px-3 rounded-md text-sm ${
-                    isInItinerary(place.id, 'poi') 
-                      ? 'bg-red-500 hover:bg-red-600' 
-                      : 'bg-blue-500 hover:bg-blue-600'
-                  } text-white transition-colors`}
-                >
-                  {isInItinerary(place.id, 'poi') ? (
-                    <>
-                      <FiTrash2 size={14} />
-                      Remove
-                    </>
-                  ) : (
-                    <>
-                      <FiPlus size={14} />
-                      Add to Itinerary
-                    </>
-                  )}
-                </button>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="bg-white p-6 rounded-lg shadow-sm text-center">
-            <p className="text-gray-500">No points of interest found for this destination.</p>
-          </div>
-        )}
-      </div>
-      
       {/* Activities Section */}
       <div className="mb-10">
         <h2 className="text-xl sm:text-2xl font-semibold mb-4 flex items-center gap-2">
@@ -127,6 +75,9 @@ const DestinationsPage = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {activities.map((activity) => (
               <div key={activity.id} className="border rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow bg-white">
+                <div>
+                  <img src={activity.pictures[0]}/>
+                </div>
                 <h3 className="font-bold text-lg mb-2">{activity.name}</h3>
                 <p className="text-gray-700 mb-3 text-sm">{activity.description}</p>
                 
