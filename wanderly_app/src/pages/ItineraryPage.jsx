@@ -63,19 +63,21 @@ const ItineraryPage = () => {
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
       {/* Header Section */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
-        <div className="flex items-center gap-4 w-full sm:w-auto">
+        <h1 className="text-2xl sm:text-3xl font-bold w-full sm:w-auto">My Travel Itinerary</h1>
+
+        <div className="flex items-center gap-3 w-full sm:w-auto">
+          <Link 
+            to="/search-page" 
+            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md text-center transition-colors"
+          >
+            Back to Search
+          </Link>
           <div className="relative">
             <NavDropdown itinerary={itinerary} />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold flex-1 sm:flex-none">My Travel Itinerary</h1>
         </div>
-        <Link 
-          to="/search-page" 
-          className="w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md text-center transition-colors"
-        >
-          Back to Search
-        </Link>
       </div>
+
 
       {/* Add Destination Form */}
       <div className="mb-8 bg-white p-4 sm:p-6 rounded-lg shadow-md">

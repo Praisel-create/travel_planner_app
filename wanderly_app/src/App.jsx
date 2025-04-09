@@ -14,6 +14,7 @@ export default function App() {
         <Route path='/destinations-page' element={<DestinationsPage />}/>
         <Route path='/flight-search-page' element={<FlightOffersPage/>}/>
         <Route path='/itinerary-page' element={<ItineraryPage/>}/>
+        {/**<Route path='/hotels-page' element/>*/}
       </Routes>
     </BrowserRouter>
   );

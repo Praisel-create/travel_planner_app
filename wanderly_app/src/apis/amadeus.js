@@ -80,3 +80,43 @@ export const activities = async (lat, lon) => {
   if (!response.ok) throw new Error("Failed to fetch activities");
   return response.json();
 };
+
+//Fetch flights
+export const flights = async (
+  originLocationCode,
+  destinationLocationCode,
+  departureDate,
+  returnDate,
+  adults = 1,
+  max = 10
+) => {
+  try {
+    const token = await getAmadeusToken();
+
+    const url = new URL("https://test.api.amadeus.com/v2/shopping/flight-offers");
+    url.searchParams.append("originLocationCode", originLocationCode);
+    url.searchParams.append("destinationLocationCode", destinationLocationCode);
+    url.searchParams.append("departureDate", departureDate);
+    if (returnDate) url.searchParams.append("returnDate", returnDate); // Optional
+    url.searchParams.append("adults", adults);
+    url.searchParams.append("max", max);
+
+    const response = await fetch(url.toString(), {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Flight API error: ${errorText}`);
+    }
+
+    const data = await response.json();
+    return { data: data.data };
+  } catch (err) {
+    console.error("Flight API fetch error:", err);
+    return { error: err.message || "Failed to fetch flights." };
+  }
+};

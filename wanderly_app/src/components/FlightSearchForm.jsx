@@ -8,7 +8,7 @@ const FlightSearchForm = ({
   defaultDeparture = "", 
   defaultReturn = "", 
   onSearch,
-  onSubmit 
+  onSubmit = () => {}
 }) => {
   const [originCity, setOriginCity] = useState("");
   const [destinationCity, setDestinationCity] = useState(defaultDestination);
@@ -136,7 +136,7 @@ const FlightSearchForm = ({
           </div>
         </div>
 
-        {/* Passengers */}
+        {/* Number of Passengers */}
         <div className="mb-6">
           <label className="block text-sm font-medium mb-1 text-gray-700">Passengers</label>
           <div className="relative">

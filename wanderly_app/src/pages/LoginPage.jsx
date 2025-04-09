@@ -7,7 +7,7 @@ const LoginPage = () => {
 
   return (
     <div className="relative min-h-screen overflow-hidden">
-      {/* Background video - responsive sizing */}
+      {/* Background video*/}
       <video 
         autoPlay
         loop
@@ -16,8 +16,8 @@ const LoginPage = () => {
         className="absolute inset-0 w-full h-full object-cover z-0"
       >
         <source src="/src/pictures/bg-video2.mp4" type="video/mp4" />
-        {/* Fallback for browsers that don't support video */}
-        <img src="/src/pictures/bg-fallback.jpg" alt="Background" className="w-full h-full object-cover" />
+        {/* Fallback if the video does not show*/}
+        <img src="https://www.choicehotels.com/cms/images/choice-hotels/demand-articles/img_best-beach-vacations-01/img_best-beach-vacations-01.jpg" alt="Background" className="w-full h-full object-cover" />
       </video>
       
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8">

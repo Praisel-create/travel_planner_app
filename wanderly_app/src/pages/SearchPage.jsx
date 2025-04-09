@@ -47,7 +47,6 @@ const SearchPage = () => {
     
   return (
     <div className="relative min-h-screen overflow-hidden bg-gray-900">
-      {/* Responsive Background */}
       <video 
         autoPlay loop muted playsInline
         className="absolute inset-0 w-full h-full object-cover z-0 opacity-80"
@@ -57,6 +56,7 @@ const SearchPage = () => {
       </video>
 
       <div className="relative z-10 min-h-screen flex flex-col p-4 sm:p-6 lg:p-8">
+        
         {/* Header Section */}
         <div className='flex justify-between items-center mb-6 sm:mb-8'>
           <div className="flex items-center gap-3">

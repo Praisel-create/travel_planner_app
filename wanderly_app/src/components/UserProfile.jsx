@@ -9,7 +9,7 @@ const UserProfile = ({ editable = false, isLoginPage = false, onUserChange }) =>
 
   const [password, setPassword] = useState('');
 
-  // Load data from localStorage on mount
+  // Load data from localStorage
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
     const savedPassword = localStorage.getItem("password");
@@ -56,7 +56,7 @@ const UserProfile = ({ editable = false, isLoginPage = false, onUserChange }) =>
 
   return (
     <div className="flex flex-col items-center gap-4 p-6 bg-white rounded-lg shadow-sm w-96">
-      {/* Profile Picture with Upload */}
+      {/* Profile Picture */}
       <div className="relative">
         <img
           src={user.profilePic}

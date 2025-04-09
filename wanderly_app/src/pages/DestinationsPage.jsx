@@ -37,13 +37,6 @@ const DestinationsPage = () => {
         </div>
       </div>
       
-      {/* Error Display */}
-      {error && (
-        <div className="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded">
-          <p>{error}</p>
-        </div>
-      )}
-      
       {/* Search Details */}
       <div className="mb-8 bg-white p-4 sm:p-6 rounded-lg shadow-sm">
         <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">

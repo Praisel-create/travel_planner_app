@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import axios from 'axios';
 import FlightSearchForm from '../components/FlightSearchForm';
+import { flights as fetchFlightOffers } from '../apis/amadeus';
+import NavDropdown from '../components/NavDropdown';
 
 const FlightOffersPage = () => {
   const location = useLocation();
-  const { city, searchData } = location.state || {}; // From SearchPage
+  const { city, searchData } = location.state || {}; 
   const [flights, setFlights] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -15,48 +16,37 @@ const FlightOffersPage = () => {
     setLoading(true);
     setError(null);
 
-    try {
-      const token = await getAmadeusToken(); // Reuse your existing token function
-      const response = await axios.get(
-        'https://test.api.amadeus.com/v2/shopping/flight-offers',
-        {
-          params: {
-            originLocationCode: originIata,  // e.g., "JFK"
-            destinationLocationCode: destinationIata, // e.g., "PAR"
-            departureDate, // e.g., "2024-07-01"
-            returnDate,   // e.g., "2024-07-10"
-            adults,        // e.g., 2
-            max: 10,      // Limit results
-          },
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setFlights(response.data.data || []);
-    } catch (err) {
-      setError(err.response?.data?.message || "Failed to fetch flights. Try again.");
-      console.error("Flight API error:", err);
-    } finally {
-      setLoading(false);
+    const { data, error } = await fetchFlightOffers(originIata, destinationIata, departureDate, returnDate, adults);
+
+    if (error) {
+      setError(error);
+      setFlights([]);
+    } else {
+      setFlights(data || []);
     }
+
+    setLoading(false);
   };
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-6">Flights to {city}</h1>
+      {/* Top Bar with Title and NavDropdown */}
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold">Flights to {city}</h1>
+        <NavDropdown />
+      </div>
 
       {/* Search Form (converts city names → IATA codes) */}
       <FlightSearchForm
-        defaultDestination={city} // Pre-fill destination from SearchPage
+        defaultDestination={city}
         defaultDeparture={searchData?.timeFrame?.leave}
         defaultReturn={searchData?.timeFrame?.return}
-        onSearch={fetchFlights} // Pass IATA codes to flight search
+        onSearch={fetchFlights}
       />
 
       {/* Results */}
       {loading && <p className="mt-4 text-center">Loading flights...</p>}
-      
+
       {error && (
         <div className="mt-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
           {error}
